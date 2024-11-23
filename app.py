@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect
 import os
 from PIL import Image
 import pickle
+import tensorflow as tf
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'static/uploads'  # Folder to store uploaded images
@@ -15,7 +16,7 @@ if not os.path.exists(UPLOAD_FOLDER):
 model_path = "model (1).pkl"  # Adjust the path if necessary
 try:
     with open(model_path, 'rb') as file:
-        model = pickle.load(file)
+        model = tf.keras.models.load_model('model (1).pkl')
 except FileNotFoundError:
     print(f"Error: Model file '{model_path}' not found. Please ensure the file exists.")
     model = None
